@@ -14,7 +14,7 @@ node {
         stage('Build') {
             dir ('gateway-service') {
                 def app = docker.build "gauthamdharsan/gateway-service:${env.version}"
-                app.push()
+                app.push(hub.docker.com)
             }
         }
 
