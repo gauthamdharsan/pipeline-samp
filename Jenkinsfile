@@ -17,12 +17,6 @@ node {
             }
         }
         
-        stage('Docker Push') {
-            steps {
-            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-            sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-            sh 'docker push gauthamdharsan/gateway-service:${env.version}'
-        
         stage ('Run') {
              docker.image("gauthamdharsan/gateway-service:${env.version}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
