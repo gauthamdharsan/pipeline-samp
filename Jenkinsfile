@@ -1,6 +1,17 @@
 node {
+
+    withMaven(maven:'maven') {
+
         stage('Checkout') {
-            git url: 'https://github.com/gauthamdharsan/pipeline-samp.git', credentialsId: 'gauthamdharsan', branch: 'master'
+            git url: 'https://github.com/leo-coutinho/Sample-Spring-Microservices.git', credentialsId: 'leo-coutinho', branch: 'master'
+        }
+
+        stage('Build') {
+            sh 'mvn clean install'
+
+            def pom = readMavenPom file:'pom.xml'
+            print pom.version
+            env.version = pom.version
         }
 
         stage('Image') {
@@ -16,3 +27,5 @@ node {
      
 
     }
+
+}
