@@ -11,7 +11,7 @@ node {
             env.version = pom.version
         }
 
-        stage('Image') {
+        stage('Build') {
             dir ('gateway-service') {
                 def app = docker.build "localhost:5000/gateway-service:${env.version}"
                 app.push()
