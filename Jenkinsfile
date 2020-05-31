@@ -1,8 +1,5 @@
 node {
-
-    withMaven(maven:'maven') {
-
-        stage('Checkout') {
+      stage('Checkout') {
             git url: 'https://github.com/leo-coutinho/Sample-Spring-Microservices.git', credentialsId: 'leo-coutinho', branch: 'master'
         }
 
@@ -28,4 +25,4 @@ node {
 
     }
 
-}
+
