@@ -1,4 +1,14 @@
 node {
+        stage("checkout git") {
+            git url: 'https://github.com/gauthamdharsan/pipeline-samp.git', credentialsId: 'git', branch: 'master'
+        }
+
+        stage("build app") {
+        node {
+        withMaven(maven:'Maven_3_3_9', mavenLocalRepo: '.repository',mavenSettingsConfig:'my-config') {
+        sh 'mvn clean install'
+             }
+        }
 
         stage('Build') {
             sh 'mvn clean install'
