@@ -1,7 +1,6 @@
 node {
-      withMaven(maven:'maven') {
-            
-      stage('Checkout') {
+      
+        stage('Checkout') {
             git url: 'https://github.com/gauthamdharsan/pipeline-samp.git', credentialsId: 'gauthamdharsan', branch: 'master'
         }
 
