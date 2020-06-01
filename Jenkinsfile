@@ -1,7 +1,7 @@
 node {
       
         stage('Checkout') {
-            git url: 'https://github.com/gauthamdharsan/pipeline-samp.git', credentialsId: 'gauthamdharsan', branch: 'master'
+            git url: 'https://github.com/gauthamdharsan/pipeline-samp', credentialsId: 'gauthamdharsan', branch: 'master'
         }
 
         stage('Build') {
