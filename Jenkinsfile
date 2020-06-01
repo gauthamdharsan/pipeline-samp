@@ -4,13 +4,12 @@ node {
         }
 
         stage('build') {
-            withMaven(maven: 'maven') {
-                sh 'mvn clean package'
+            sh 'mvn clean package'
 
             def pom = readMavenPom file:'pom.xml'
             print pom.version
             env.version = pom.version
-            }
+            
         }
         stage('Image') {
             dir ('gateway-service') {
