@@ -4,7 +4,7 @@ node {
         }
 
         stage('build') {
-            withMaven(maven: 'mvn') {
+            withMaven(maven: 'maven') {
                 sh 'mvn clean package'
 
             def pom = readMavenPom file:'pom.xml'
