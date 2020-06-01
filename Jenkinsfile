@@ -6,9 +6,7 @@ node {
         stage('Checkout') {
             git url: 'https://github.com/gauthamdharsan/pipeline-samp', credentialsId: 'gauthamdharsan', branch: 'master'
         }
-
-        #stage('Build') {
-        #    sh 'mvn clean'
+        
 
             def pom = readMavenPom file:'pom.xml'
             print pom.version
