@@ -1,9 +1,5 @@
 node {
 
-        stage('Checkout') {
-            git url: 'https://github.com/leo-coutinho/Sample-Spring-Microservices.git', credentialsId: 'leo-coutinho', branch: 'master'
-        }
-
         stage('Build') {
             sh 'mvn clean install'
 
