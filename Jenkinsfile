@@ -1,32 +1,27 @@
-node {
-        stage("checkout git") {
-            git url: 'https://github.com/gauthamdharsan/pipeline-samp.git', credentialsId: 'git', branch: 'master'
+#!groovy
+
+pipeline {
+  agent none
+  stages {
+    stage('Maven Install') {
+      agent {
+        docker {
+          image 'maven:3.5.0'
         }
-
-        stage("build app") {
-          node {
-            withMaven(maven:'Maven_3_3_9', mavenLocalRepo: '.repository',mavenSettingsConfig:'my-config') {
-              sh 'mvn clean install'
-          }
-        }
-
-        stage('Build') {
-            sh 'mvn clean install'
-
-            def pom = readMavenPom file:'pom.xml'
-            print pom.version
-            env.version = pom.version
-        }
-
-        stage('Image') {
-            dir ('gateway-service') {
-                def app = docker.build "localhost:5000/gateway-service:${env.version}"
-                app.push()
-            }
-        }
-
+      }
+      steps {
+        sh 'mvn clean install'
+      }
+    }
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t gauthamdharsan/poc:latest .'
+      }
+    }
+  }
+}
         stage ('Run') {
-             docker.image("localhost:5000/gateway-service:${env.version}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
+             docker.image('gauthamdharsan/poc:latest').run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
      
-     }
