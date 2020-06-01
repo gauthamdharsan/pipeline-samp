@@ -10,8 +10,8 @@ node {
             def pom = readMavenPom file:'pom.xml'
             print pom.version
             env.version = pom.version
+            }
         }
-
         stage('Image') {
             dir ('gateway-service') {
                 def app = docker.build "localhost:5000/gateway-service:${env.version}"
@@ -22,7 +22,7 @@ node {
         stage ('Run') {
              docker.image("localhost:5000/gateway-service:${env.version}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
-     }
+     
 
   }
 
