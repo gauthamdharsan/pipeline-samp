@@ -4,10 +4,10 @@ node {
         }
 
         stage("build app") {
-        node {
-        withMaven(maven:'Maven_3_3_9', mavenLocalRepo: '.repository',mavenSettingsConfig:'my-config') {
-        sh 'mvn clean install'
-             }
+          node {
+            withMaven(maven:'Maven_3_3_9', mavenLocalRepo: '.repository',mavenSettingsConfig:'my-config') {
+              sh 'mvn clean install'
+          }
         }
 
         stage('Build') {
@@ -29,7 +29,4 @@ node {
              docker.image("localhost:5000/gateway-service:${env.version}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
      
-
-    
-
-}
+     }
