@@ -21,11 +21,12 @@ node {
         stage('Push Image') {
             docker.withRegistry('https://registry.hub.docker.com', 'docker') {
                 app.push("latest")
+            }
         
         stage ('Run') {
-             docker.image("gauthamdharsan/gateway-service:${env.version}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
+            docker.image("gauthamdharsan/gateway-service:${env.version}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
-     
+     }
 
   }
 
