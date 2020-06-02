@@ -12,7 +12,7 @@ node {
             
         }
         stage('Image') {
-            dir ('test') {
+            dir ('gateway-service') {
                 def app = docker.build "gauthamdharsan/gateway-service:latest"
           
             }
