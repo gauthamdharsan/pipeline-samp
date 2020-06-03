@@ -20,7 +20,7 @@ node {
         }
         
         stage('Push Image') {
-            docker.withRegistry(credentialsId: 'docker', url: 'https://registry.hub.docker.com') {
+            docker.withRegistry(credentialsId: 'docker', url: 'gauthamdharsan') {
             image.push()
             }
         }
