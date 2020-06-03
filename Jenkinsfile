@@ -11,22 +11,25 @@ node {
             env.version = pom.version
             
         }
+        
         stage('Image') {
             dir ('gateway-service') {
-                def app = docker.build "gauthamdharsan/gateway-service:latest"
+                def image = docker.build "gauthamdharsan/gateway-service:latest"
           
             }
         }
         
         stage('Push Image') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker') {
-                image.push()
+            withDockerRegistry(credentialsId: 'docker', url: 'https://registry.hub.docker.com') {
+            image.push()
             }
+        }
+        
         
         stage ('Run') {
             docker.image("gauthamdharsan/gateway-service:latest").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
      }
 
-  }
+  
 
