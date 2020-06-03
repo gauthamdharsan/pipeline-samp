@@ -14,14 +14,14 @@ node {
         
         stage('Image') {
             dir ('gateway-service') {
-                def Image = docker.build "gauthamdharsan/gateway-service:latest"
+                def image = docker.build "gauthamdharsan/gateway-service:latest"
           
             }
         }
         
         stage('Push Image') {
             withDockerRegistry(credentialsId: 'docker', url: 'https://registry.hub.docker.com') {
-            dockerImage.push()
+            dockerimage.push("gauthamdharsan/gateway-service:latest")
             }
         }
         
