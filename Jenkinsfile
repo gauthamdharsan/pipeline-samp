@@ -1,6 +1,7 @@
 node {
+    def app
         stage('Checkout') {
-            git url: 'https://github.com/gauthamdharsan/pipeline-samp.git', credentialsId: 'git', branch: 'master'
+            git url: 'https://github.com/gauthamdharsan/pipeline-samp.git'
         }
 
         stage('build') {
