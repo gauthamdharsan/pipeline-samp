@@ -13,7 +13,7 @@ node {
         }
         
         stage('Image') {
-            dir ('gateway-service') {
+            dir ('${WORKSPACE}/Dockerfile') {
                 def app = docker.build "gauthamdharsan/gateway-service:${env.BUILD_NUMBER}"
           
             }
