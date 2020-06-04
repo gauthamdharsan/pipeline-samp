@@ -20,8 +20,9 @@ node {
         }
         
         stage('Push Image') {
-            docker.withRegistry(credentialsId: 'docker', url: 'gauthamdharsan') {
-            image.push()
+            docker.withRegistry("docker.io/gauthamdharsan/gateway-service:latest", "docker") {
+            //docker.withRegistry(credentialsId: 'docker', url: 'gauthamdharsan') {
+            dockerImage.push()
             }
         }
         
