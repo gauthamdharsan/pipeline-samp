@@ -14,21 +14,20 @@ node {
         
         stage('Image') {
             dir ('gateway-service') {
-                def image = docker.build "gauthamdharsan/gateway-service:latest"
+                def app = docker.build "gauthamdharsan/gateway-service:${env.BUILD_NUMBER}"
           
             }
         }
         
-        stage('Push Image') {
-            docker.withRegistry("docker.io/gauthamdharsan/gateway-service:latest", "docker") {
-            //docker.withRegistry(credentialsId: 'docker', url: 'gauthamdharsan') {
-            dockerImage.push()
+        stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker') {
+            app.push("${env.BUILD_NUMBER}")
+            
             }
         }
         
-        
         stage ('Run') {
-            docker.image("gauthamdharsan/gateway-service:latest").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
+            docker.image("gauthamdharsan/gateway-service:${env.BUILD_NUMBER}").run('-p 4444:4444 -h gateway --name gateway --link discovery --link accounts --link customer')
         }
      }
 
